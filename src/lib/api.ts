@@ -1,7 +1,8 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://127.0.0.1:8000/api",
+  // Railway'dagi aniq Django backend havolangizni yozing:
+  baseURL: "https://rest-production-xxxx.up.railway.app/api", 
 });
 
 // Ochiq (token talab qilmaydigan) URL-lar ro'yxati

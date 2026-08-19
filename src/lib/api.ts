@@ -1,8 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  // SIZNING_RAILWAY_DOMENINGIZ o'rniga Railway'dagi haqiqiy domenni qo'ying:
-  baseURL: "https://rest-production-388c.up.railway.app/", 
+  baseURL: "https://rest-production-388c.up.railway.app/api",
 });
 
 // Ochiq (token talab qilmaydigan) URL-lar ro'yxati

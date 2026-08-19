@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // Django backend manzili
-const BACKEND_URL = "http://127.0.0.1:8000";
+const BACKEND_URL = "https://rest-production-388c.up.railway.app/";
 
 // Rasm URL'ini to'g'ri formatlovchi funksiya
 export const getAvatarUrl = (avatarPath?: string | null) => {

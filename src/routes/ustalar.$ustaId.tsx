@@ -11,7 +11,7 @@ const getImageUrl = (path: string | null | undefined) => {
   if (!path) return "/placeholder-avatar.png";
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
 
-  const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+  const API_URL = import.meta.env.VITE_API_URL || "https://rest-production-388c.up.railway.app/";
   return `${API_URL}${path.startsWith("/") ? "" : "/"}${path}`;
 };
 

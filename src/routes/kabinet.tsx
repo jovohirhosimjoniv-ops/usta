@@ -22,7 +22,6 @@ import {
   FAVORITES_CHANNEL,
   getSavedUstaIds,
 } from "@/lib/favorites";
-import { getAvatarUrl } from "@/lib/utils";
 
 export const Route = createFileRoute("/kabinet")({
   head: () => ({
@@ -35,10 +34,12 @@ const DEFAULT_AVATAR =
   "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200";
 
 const getImageUrl = (path: string | null | undefined) => {
-  if (!path) return "/placeholder-avatar.png";
+  if (!path) return DEFAULT_AVATAR;
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
   const API_URL = import.meta.env.VITE_API_URL || "https://rest-production-388c.up.railway.app/";
-  return `${API_URL}${path.startsWith("/") ? "" : "/"}${path}`;
+  const cleanApiUrl = API_URL.replace(/\/api\/?$/, "").replace(/\/$/, "");
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  return `${cleanApiUrl}${cleanPath}`;
 };
 
 const STATUS_MAP: Record<
@@ -221,7 +222,7 @@ export function Kabinet() {
       {/* PROFIL SEKSIYASI */}
       <section className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 rounded-3xl border bg-card p-6 shadow-soft">
         <img
-          src={getAvatarUrl(user.avatar)}
+          src={getImageUrl(user.avatar)}
           alt={`${user.ism} profili`}
           width={72}
           height={72}

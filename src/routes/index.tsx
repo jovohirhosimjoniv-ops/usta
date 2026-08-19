@@ -83,14 +83,13 @@ function BoshSahifa() {
 
         setUstalar(formatted);
 
-        // Statistikani olish xatoga uchrasa ham asosiy sahifa to'xtab qolmaydi
         try {
           const statsRes = await api.get("/statistika/");
           if (statsRes.data) {
             setStatsData(statsRes.data);
           }
         } catch (e) {
-          console.warn("Statistika API topilmadi, hisoblangan statistika ko'rsatiladi.");
+          console.warn("Statistika API ma'lumoti olinmadi:", e);
         }
       } catch (error) {
         console.error("Ma'lumotlarni olishda xatolik:", error);
@@ -102,15 +101,15 @@ function BoshSahifa() {
     fetchData();
   }, []);
 
-  // Backenddan 0 kelsa yoki API yo'q bo'lsa, ustalar soniga qarab dinamik hisoblash
-  const ustaSoni = ustalar.length;
-  const mijozSoni = statsData.mijozlar > 0 ? statsData.mijozlar : ustaSoni > 0 ? ustaSoni * 15 + 10 : 120;
-  const tugatilganIshSoni = statsData.tugatilgan_ishlar > 0 ? statsData.tugatilgan_ishlar : ustaSoni > 0 ? ustaSoni * 25 + 50 : 250;
+  // Sun'iy 205+ ko'paytmasiz, faqat backend bergan aniq bazaviy ko'rsatkichlar
+  const ustaSoni = ustalar.length || statsData.ustalar;
+  const mijozSoni = statsData.mijozlar;
+  const tugatilganIshSoni = statsData.tugatilgan_ishlar;
 
   const statistika = [
-    { qiymat: `${mijozSoni}+`, label: "Mijozlar" },
+    { qiymat: `${mijozSoni}`, label: "Mijozlar" },
     { qiymat: `${ustaSoni}`, label: "Usta" },
-    { qiymat: `${tugatilganIshSoni}+`, label: "Tugatilgan ish" },
+    { qiymat: `${tugatilganIshSoni}`, label: "Tugatilgan ish" },
     { qiymat: statsData.mamnunlik || "98%", label: "Mamnun mijoz" },
   ];
 
@@ -189,7 +188,7 @@ function BoshSahifa() {
         </div>
       </section>
 
-      {/* Statistika */}
+      {/* Real Statistika Blocki */}
       <section className="mx-auto -mt-8 max-w-7xl px-4 lg:px-8">
         <div className="grid grid-cols-2 gap-4 rounded-3xl border bg-card p-6 shadow-lift lg:grid-cols-4">
           {statistika.map((s) => (

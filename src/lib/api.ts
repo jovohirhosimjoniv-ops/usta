@@ -1,8 +1,8 @@
 import axios from "axios";
 
 export const api = axios.create({
-  // Railway'dagi aniq Django backend havolangizni yozing:
-  baseURL: "https://rest-production-xxxx.up.railway.app/api", 
+  // SIZNING_RAILWAY_DOMENINGIZ o'rniga Railway'dagi haqiqiy domenni qo'ying:
+  baseURL: "https://SIZNING_RAILWAY_DOMENINGIZ.up.railway.app/api", 
 });
 
 // Ochiq (token talab qilmaydigan) URL-lar ro'yxati
